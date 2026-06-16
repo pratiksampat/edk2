@@ -60,7 +60,14 @@ typedef enum {
   /// by a corresponding call to the underlying isolation architecture.
   ///
   EfiGcdMemoryTypeUnaccepted,
-  EfiGcdMemoryTypeMaximum = 7
+  ///
+  /// A memory region reserved as a guest-physical address window for future
+  /// hot-add of memory. The range is not currently backed by populated memory
+  /// and must not be allocated until brought online by a platform hot-plug
+  /// event.
+  ///
+  EfiGcdMemoryTypeHotPlug,
+  EfiGcdMemoryTypeMaximum = 8
 } EFI_GCD_MEMORY_TYPE;
 
 ///

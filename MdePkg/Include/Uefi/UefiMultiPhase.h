@@ -107,6 +107,13 @@ typedef enum {
   /// by a corresponding call to the underlying isolation architecture.
   ///
   EfiUnacceptedMemoryType,
+  ///
+  /// A memory region reserved by firmware as a guest-physical address window
+  /// for future memory hot-add events. The range is not present at boot, must
+  /// not be accessed or allocated by firmware or the OS loader, and is brought
+  /// online by the OS in response to a platform hot-plug notification.
+  ///
+  EfiHotPlugMemoryType,
   EfiMaxMemoryType,
   //
   // +---------------------------------------------------+

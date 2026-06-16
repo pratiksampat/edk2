@@ -28,6 +28,7 @@ STATIC CONST CHAR16  *FullNameEfiMemory[] = {
   [EfiPalCode]                 = L"PalCode",
   [EfiPersistentMemory]        = L"Persistent",
   [EfiUnacceptedMemoryType]    = L"Unaccepted",
+  [EfiHotPlugMemoryType]       = L"HotPlug",
 };
 
 //
@@ -75,6 +76,7 @@ STATIC CONST MEMORY_TYPE_INFO  MemoryPageArray[EfiMaxMemoryType] = {
   [EfiPalCode]                 = { TRUE,  FALSE, },
   [EfiPersistentMemory]        = { TRUE,  FALSE, },
   [EfiUnacceptedMemoryType]    = { TRUE,  FALSE, },
+  [EfiHotPlugMemoryType]       = { FALSE, FALSE, },
 };
 
 /** Memory Type Pages Information.

@@ -109,6 +109,7 @@ GLOBAL_REMOVE_IF_UNREFERENCED CONST CHAR8  *mGcdMemoryTypeNames[] = {
   "PersisMem",  // EfiGcdMemoryTypePersistent
   "MoreRelia",  // EfiGcdMemoryTypeMoreReliable
   "Unaccepte",  // EfiGcdMemoryTypeUnaccepted
+  "HotPlug  ",  // EfiGcdMemoryTypeHotPlug
   "Unknown  "   // EfiGcdMemoryTypeMaximum
 };
 
@@ -2752,6 +2753,9 @@ CoreInitializeGcdServices (
           break;
         case EFI_RESOURCE_MEMORY_UNACCEPTED:
           GcdMemoryType = EfiGcdMemoryTypeUnaccepted;
+          break;
+        case EFI_RESOURCE_MEMORY_HOT_PLUG:
+          GcdMemoryType = EfiGcdMemoryTypeHotPlug;
           break;
         case EFI_RESOURCE_IO:
           GcdIoType = EfiGcdIoTypeIo;
