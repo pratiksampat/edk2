@@ -120,7 +120,7 @@ AmdSevSnpGetApicIds (
 STATIC
 VOID
 AmdSevSnpInitialize (
-  VOID
+  IN EFI_HOB_PLATFORM_INFO  *PlatformInfoHob
   )
 {
   EFI_PEI_HOB_POINTERS         Hob;
@@ -159,6 +159,22 @@ AmdSevSnpInitialize (
           );
       }
     }
+  }
+
+  //
+  // Describe the QEMU memory hotplug window as a dedicated EFI_RESOURCE_MEMORY_HOT_PLUG
+  // resource. The window has no backing memory yet, so it is reported as its own
+  // memory type rather than as unaccepted memory: a UHP-aware OS can size its
+  // unaccepted-memory tracking to cover the memory that ACPI hot-add brings online
+  // later, while firmware and legacy OSes leave the region untouched.
+  //
+  if (PlatformInfoHob->HotPlugMemoryEnd > PlatformInfoHob->HotPlugMemoryStart) {
+    BuildResourceDescriptorHob (
+      EFI_RESOURCE_MEMORY_HOT_PLUG,
+      0,
+      PlatformInfoHob->HotPlugMemoryStart,
+      PlatformInfoHob->HotPlugMemoryEnd - PlatformInfoHob->HotPlugMemoryStart
+      );
   }
 
   //
@@ -450,7 +466,7 @@ AmdSevInitialize (
   // is because the system RAM must be validated before it is made shared.
   // The AmdSevSnpInitialize() validates the system RAM.
   //
-  AmdSevSnpInitialize ();
+  AmdSevSnpInitialize (PlatformInfoHob);
 
   //
   // Set Memory Encryption Mask PCD
